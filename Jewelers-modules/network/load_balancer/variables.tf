@@ -15,8 +15,8 @@ variable "load_balancer_name" {
 
 variable "frontend_ip_address" {
   default = "The frontend ip address"
-  type = string
-  
+  type    = string
+
 }
 variable "frontend_ip_configuration_name" {
   description = "The name of the frontend IP configuration"
@@ -59,6 +59,5 @@ variable "sku" {
 
 variable "public_ip_address_id" {
   description = "Public ip address id for external lb"
-  type = string
-  
+  type        = string
 }

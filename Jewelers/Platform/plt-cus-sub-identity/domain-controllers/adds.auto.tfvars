@@ -4,8 +4,6 @@ key_vault_name = "i-cus-kv-identity"
 
 #################################################################
 ######################### Subscriptions #########################
-
-#######################
 #################################################################
 
 
@@ -58,15 +56,3 @@ ADDS = {
   },
 }
 
-tags = {
-  Applications  = "Domain Controllers"
-  BusinessOwner = "IT"
-  ITOwner       = "Networking"
-  CreatedBy     = "ggibson@3cloudsolutions.com"
-  CreatedOn     = "06/24/2024"
-  Department    = "IT"
-  Description   = "Domain Controller"
-  DisplayName   = "Domain Controller"
-  Environment   = "Platform"
-  Tier          = "1"
-}

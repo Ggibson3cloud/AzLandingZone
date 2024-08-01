@@ -45,7 +45,7 @@ vnets = [ ##update
     resource_group = "t-cus-rg-mgmt"
     name           = "t-cus-vnet-mgmt"
     cidr           = ["10.130.40.0/24"]
-    dns_servers    = []
+    dns_servers    = ["10.251.8.68"]
   }
 ]
 
@@ -124,6 +124,6 @@ subnet_route_table_associations = {
 }
 
 
-key_vault_name = "t-cus-kv-mgmt" ###"icusidentitykv" ##update
+key_vault_name = "t-cus-kv-mgmt01" ###"icusidentitykv" ##update
 
 hubid = "3a5271d7-a7d6-4584-818c-238fa6355819" 

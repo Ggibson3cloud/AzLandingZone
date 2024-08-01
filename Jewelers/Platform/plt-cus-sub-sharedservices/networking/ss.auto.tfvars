@@ -46,7 +46,7 @@ vnets = [
     resource_group = "o-cus-rg-ss"
     name           = "o-cus-vnet-ss"
     cidr           = ["10.120.8.0/24"]
-    dns_servers    = []
+    dns_servers    = ["10.251.8.68"]
   }
 ]
 
@@ -195,6 +195,6 @@ key_vault_name = "o-cus-kv-sharedservice-01"
 #   }
 # }
 
-bastion_name = "h-cus-bastion-bastion01"
+#bastion_name = "h-cus-bastion-bastion01"
 
 hubid = "3a5271d7-a7d6-4584-818c-238fa6355819" 

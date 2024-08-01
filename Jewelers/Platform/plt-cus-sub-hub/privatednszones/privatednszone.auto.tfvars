@@ -62,8 +62,9 @@ dns_zones = [
   "training-aseilb.jewelersmutual.com",
   "uat-aseilb.jewelersmutual.com",
   "uat2-aseilb.jewelersmutual.com",
-  "whiteisland-f5877e78.centralus.azurecontainerapps.io"
-  
+  "whiteisland-f5877e78.centralus.azurecontainerapps.io",
+  "azure-api.net",
+  "appserviceenvironment.net"
   
 ]
 

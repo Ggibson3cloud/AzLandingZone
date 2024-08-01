@@ -85,15 +85,16 @@ module "nsgs" {
 
 #---------------------------------------------------------
 # Azure Bastion
+# Deleted Bastion because not needed but was asked to leave subnet...leaving code if wanted in future
 #---------------------------------------------------------
 
-module "bastion" {
-  source         = "../../../../Jewelers-modules/network/bastion"
-  bastion_name   = var.bastion_name
-  location       = var.location
-  resource_group = module.resource_group.name
-  bastion_subnet = module.subnets["AzureBastionSubnet"].subnets_id
-}
+# module "bastion" {
+#   source         = "../../../../Jewelers-modules/network/bastion"
+#   bastion_name   = var.bastion_name
+#   location       = var.location
+#   resource_group = module.resource_group.name
+#   bastion_subnet = module.subnets["AzureBastionSubnet"].subnets_id
+# }
 #---------------------------------------------------------
 # Spoke 2 VNET Peerings
 #---------------------------------------------------------

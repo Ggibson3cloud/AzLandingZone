@@ -8,12 +8,12 @@ create_outbound_endpoint = false
 
 ## To add endpoints create a string list example ["inbound-endpoint-1", "inbound-endpoint-2"] 
 ##for all of the inbound and outbound endpoints you want to make
-inbound_endpoint_names   = ["h-cus-ep-dns01in"]
-outbound_endpoint_names  = ["h-cus-ep-dns01out"]
+inbound_endpoint_names  = ["h-cus-ep-dns01in"]
+outbound_endpoint_names = ["h-cus-ep-dns01out"]
 
 ##To add one or more enpoint subnets add a string list exmple ["subnet-id-1", "subnet-id-2"]
-inbound_subnet_ids        = ["/subscriptions/3a5271d7-a7d6-4584-818c-238fa6355819/resourceGroups/h-cus-rg-hub/providers/Microsoft.Network/virtualNetworks/h-cus-vnet-hub/subnets/h-cus-snet-privatednsin"]
-outbound_subnet_ids       = ["/subscriptions/3a5271d7-a7d6-4584-818c-238fa6355819/resourceGroups/h-cus-rg-hub/providers/Microsoft.Network/virtualNetworks/h-cus-vnet-hub/subnets/h-cus-snet-privatednsout"]
+inbound_subnet_ids  = ["/subscriptions/3a5271d7-a7d6-4584-818c-238fa6355819/resourceGroups/h-cus-rg-hub/providers/Microsoft.Network/virtualNetworks/h-cus-vnet-hub/subnets/h-cus-snet-privatednsin"]
+outbound_subnet_ids = ["/subscriptions/3a5271d7-a7d6-4584-818c-238fa6355819/resourceGroups/h-cus-rg-hub/providers/Microsoft.Network/virtualNetworks/h-cus-vnet-hub/subnets/h-cus-snet-privatednsout"]
 
 
 tags = {

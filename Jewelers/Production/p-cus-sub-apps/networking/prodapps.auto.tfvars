@@ -45,7 +45,7 @@ vnets = [ ##update
     resource_group = "p-cus-rg-apps"
     name           = "p-cus-vnet-apps"
     cidr           = ["10.120.64.0/19"]
-    dns_servers    = []
+    dns_servers    = ["10.251.8.68"]
   }
 ]
 
@@ -248,6 +248,6 @@ subnet_route_table_associations = {
   }
 }
 
-key_vault_name = "p-cus-kv-apps-01" ###"icusidentitykv" ##update
+key_vault_name = "p-cus-kv-apps01" ###"icusidentitykv" ##update
 
 hubid = "3a5271d7-a7d6-4584-818c-238fa6355819" 

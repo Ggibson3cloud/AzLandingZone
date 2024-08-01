@@ -85,19 +85,6 @@ module "ss_nsgs" {
 }
 
 
-resource "azurerm_subnet_network_security_group_association" "this" {
-  for_each = { for subnet_name, subnet in var.subnet : subnet_name => subnet }
-  count = length(each.value.nsg) > 0 ? 1 : 0
-
-  subnet_id = module.identity_subnets[each.key].subnets_id
-  network_security_group_id = module.ss_nsgs[each.value.nsg].id
-
-  depends_on = [
-    module.identity_subnets,
-    module.ss_nsgs
-  ]
-}
-
 
 #---------------------------------------------------------
 # Spoke 1 VNET Peerings 

@@ -45,7 +45,7 @@ vnets = [
     resource_group = "i-cus-rg-identity"
     name           = "i-cus-vnet-identity"
     cidr           = ["10.120.0.0/24"]
-    dns_servers    = []
+    dns_servers    = ["10.251.8.68"]
   }
 ]
 
@@ -213,6 +213,6 @@ subnet_route_table_associations = {
     route_table = "i-cus-rt-privatelink"
   }
 }
-key_vault_name = "i-cus-kv-identity-01"
+key_vault_name = "i-cus-kv-identity01"
 
 hubid = "3a5271d7-a7d6-4584-818c-238fa6355819" 

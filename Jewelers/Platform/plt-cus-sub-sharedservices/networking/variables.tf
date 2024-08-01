@@ -63,10 +63,10 @@ variable "subnet_route_table_associations" {
   default = {}
 }
 
-variable "bastion_name" {
-  type        = string
-  description = "Name of the provisioned bastion server"
-}
+# variable "bastion_name" {
+#   type        = string
+#   description = "Name of the provisioned bastion server"
+# }
 
 variable "hubid" {}
 variable "key_vault_name" {}

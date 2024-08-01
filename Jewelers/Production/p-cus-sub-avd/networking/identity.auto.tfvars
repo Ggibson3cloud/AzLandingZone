@@ -45,7 +45,7 @@ vnets = [ ##update
     resource_group = "p-cus-rg-avd"
     name           = "p-cus-vnet-avd"
     cidr           = ["10.120.160.0/19"]
-    dns_servers    = []
+    dns_servers    = ["10.251.8.68"]
   }
 ]
 
@@ -113,7 +113,7 @@ subnet = { ##update
     p-cus-snet-netapp = {
     subnet_range                                   = ["10.120.170.64/27"]
     service_endpoints                              = []
-    delegation_name                                = null
+    delegation_name                                = "Microsoft.NetApp/volumes"
     delegation_actions                             = null
     enforce_private_link_endpoint_network_policies = true
     vnet                                           = "p-cus-vnet-avd"
