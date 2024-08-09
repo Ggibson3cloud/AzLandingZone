@@ -46,4 +46,4 @@ frontend_ip_configuration_external = "external"
 ####################################
 gateway_lb_name = "h-cus-glb-ftdv"
 private_ip_address_glb = "10.251.10.71"
-frontend_ip_configuration_name_gateway = "gateway_front"
+frontend_ip_configuration_name_gateway = "gateway_front_end"

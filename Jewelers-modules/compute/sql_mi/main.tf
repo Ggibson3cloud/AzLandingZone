@@ -33,6 +33,9 @@ resource "azurerm_mssql_managed_instance" "this" {
   collation                    = var.collation
   administrator_login          = var.adminUser
   administrator_login_password = random_string.local_password.result
+   identity {
+    type = "SystemAssigned"
+  }
 
 }
 
@@ -40,6 +43,7 @@ resource "azurerm_mssql_managed_database" "this" {
   for_each            = { for db_name in var.database_name : db_name => db_name }
   name                = each.key
   managed_instance_id = azurerm_mssql_managed_instance.this.id
+  short_term_retention_days = 14
 
 depends_on = [
     azurerm_mssql_managed_instance.this
@@ -48,6 +52,7 @@ depends_on = [
   lifecycle {
     prevent_destroy = true
   }
+
 
 }
 

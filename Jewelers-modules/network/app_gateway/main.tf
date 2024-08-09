@@ -2,8 +2,7 @@ resource "azurerm_public_ip" "appgw_public_ip" {
   name                = "app-gw-public-ip-001"
   location            = var.location
   resource_group_name = var.rg_name
-  domain_name_label   = "demo-storage"
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 resource "azurerm_application_gateway" "this" {

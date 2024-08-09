@@ -26,7 +26,7 @@ sqlmi = {
     license_type       = "LicenseIncluded"
     sku                = "GP_Gen5"
     collation          = "Latin1_General_100_CI_AS"
-    storage_size_in_gb = 64
+    storage_size_in_gb = 128
     vcores             = 4
     databases = [
       "Aspnet",
@@ -45,7 +45,8 @@ sqlmi = {
       "PLEcom_ASPState",
       "PmtServices",
       "RJC",
-      "RulesEngine"
+      "RulesEngine",
+      "ImageRight",
     ]
   },
   #   sqlmi2 = {

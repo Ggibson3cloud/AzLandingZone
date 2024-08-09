@@ -13,7 +13,7 @@ tags = {
   Description   = "Development resources for web"
   DisplayName   = "Development web"
   Environment   = "Development"
-  Tier          = "3"
+  Tier          = "2"
 }
 
 
@@ -21,6 +21,6 @@ tags = {
 #Internal Load Balancer
 ###################################
 sku = "Standard"
-internal_lb_name                        = "d-cus-ilb-svco15"
-private_ip_address_ilb                  = "10.130.88.21"
+internal_lb_name                        = "d-cus-ilb-svc015"
+private_ip_address_ilb                  = "10.130.88.25"
 frontend_ip_configuration_name_internal = "internal"

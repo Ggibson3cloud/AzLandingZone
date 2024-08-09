@@ -61,12 +61,6 @@ resource "azurerm_lb" "this" {
 #   name            = "BackEndAddressPool"
 # }
 
-# resource "azurerm_lb_backend_address_pool_address" "" {
-#   name                                = "internal-fortigate"
-#   backend_address_pool_id             = azurerm_lb_backend_address_pool.this.id
-#   backend_address_ip_configuration_id = azurerm_lb.this.frontend_ip_configuration[0].id
-# }
-
 
 # ## Health Probe ##
 # resource "azurerm_lb_probe" "this" {
