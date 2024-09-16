@@ -19,8 +19,8 @@ tags = {
   CreatedBy     = "ggibson@3cloudsolutions.com"
   CreatedOn     = "06/24/2024"
   Department    = "IT"
-  Description   = "Sandbox Mgmt"
-  DisplayName   = "Sandbox Mgmt"
+  Description   = "Sandbox external"
+  DisplayName   = "Sandbox external"
   Environment   = "Sandbox"
   Tier          = "00"
 }
@@ -28,15 +28,15 @@ tags = {
 #---------------------------------------------------------
 # Resource Group Names
 #---------------------------------------------------------
-rg_name = "x-cus-rg-mgmt"
+rg_name = "x-cus-rg-external"
 
 #---------------------------------------------------------
 # VNETs
 #---------------------------------------------------------
 vnets = [ ##update
   {
-    resource_group = "x-cus-rg-mgmt"
-    name           = "x-cus-vnet-mgmt"
+    resource_group = "x-cus-rg-external"
+    name           = "x-cus-vnet-external"
     cidr           = ["10.130.112.0/21"]
     dns_servers    = []
   }
@@ -49,7 +49,7 @@ subnet = { ##update
     delegation_name                                = null
     delegation_actions                             = null
     enforce_private_link_endpoint_network_policies = true
-    vnet                                           = "x-cus-vnet-mgmt"
+    vnet                                           = "x-cus-vnet-external"
     nsg                                            = "x-cus-snet-sql-nsg"
     route_table                                    = true
   },
@@ -59,7 +59,7 @@ subnet = { ##update
     delegation_name                                = null
     delegation_actions                             = null
     enforce_private_link_endpoint_network_policies = true
-    vnet                                           = "x-cus-vnet-mgmt"
+    vnet                                           = "x-cus-vnet-external"
     nsg                                            = "x-cus-snet-web-nsg"
     route_table                                    = true
   },
@@ -69,7 +69,7 @@ subnet = { ##update
     delegation_name                                = null
     delegation_actions                             = null
     enforce_private_link_endpoint_network_policies = true
-    vnet                                           = "x-cus-vnet-mgmt"
+    vnet                                           = "x-cus-vnet-external"
     nsg                                            = "x-cus-snet-apps-nsg"
     route_table                                    = true
   },
@@ -79,7 +79,7 @@ subnet = { ##update
     delegation_name                                = null
     delegation_actions                             = null
     enforce_private_link_endpoint_network_policies = true
-    vnet                                           = "x-cus-vnet-mgmt"
+    vnet                                           = "x-cus-vnet-external"
     nsg                                            = null
     route_table                                    = true
   },

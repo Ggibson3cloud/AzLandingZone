@@ -66,7 +66,7 @@ resource "azurerm_subnet_route_table_association" "this" {
   subnet_id      = module.identity_subnets[each.value.subnet].subnets_id
   route_table_id = module.route_tables[each.value.route_table].route_table_id
 
-   depends_on = [
+  depends_on = [
     module.identity_subnets,
     module.route_tables
   ]

@@ -7,13 +7,13 @@
 ######################### Subscriptions #########################
 
 # PLT-eus2-Hub = 3a5271d7-a7d6-4584-818c-238fa6355819
-# PLT-eus2-Identity = 1d8bcd67-7874-4cfa-9da0-06038011c26b
+# PLT-eus2-Identity = 1d8bcd67-7874-4cfa-9da0-06038021c26b
 # PLT-eus2-SharedService = fc0f9a38-a35a-479a-a5ab-65bfd51dd52f
 
 #################################################################
 #################################################################
 
-subscriptionid = ""
+subscriptionid = "8cc21a98-4584-4bed-8643-4cb6fd0d7bbf"
 
 
 location = "eastus2" // 
@@ -51,7 +51,7 @@ vnets = [
   {
     resource_group = "h-eus2-rg-hub"
     name           = "h-eus2-vnet-appgw"
-    cidr           = ["10.251.12.0/24"]
+    cidr           = ["10.251.24.0/24"]
     dns_servers    = []
   }
 ]
@@ -99,7 +99,7 @@ subnet = {
     route_table                                    = null
   },
   h-eus2-snet-sdwanoutside = {
-    subnet_range                                   = ["10.251.11.64/26"]
+    subnet_range                                   = ["10.251.21.64/26"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
@@ -109,7 +109,7 @@ subnet = {
     route_table                                    = null
   },
   h-eus2-snet-sdwaninside = {
-    subnet_range                                   = ["10.251.11.0/26"]
+    subnet_range                                   = ["10.251.21.0/26"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
@@ -119,7 +119,7 @@ subnet = {
     route_table                                    = null
   },
   h-eus2-snet-dnsprinside = {
-    subnet_range                                   = ["10.251.11.128/26"]
+    subnet_range                                   = ["10.251.21.128/26"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
@@ -129,7 +129,7 @@ subnet = {
     route_table                                    = null
   },
   h-eus2-snet-dnsproutside = {
-    subnet_range                                   = ["10.251.11.192/26"]
+    subnet_range                                   = ["10.251.21.192/26"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
@@ -139,7 +139,7 @@ subnet = {
     route_table                                    = null
   },
   AzureBastionSubnet = {
-    subnet_range                                   = ["10.251.8.0/26"]
+    subnet_range                                   = ["10.251.22.128/26"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
@@ -149,7 +149,7 @@ subnet = {
     route_table                                    = null
   },
   h-eus2-snet-appgw = {
-    subnet_range                                   = ["10.251.12.0/25"]
+    subnet_range                                   = ["10.251.24.0/25"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
@@ -159,7 +159,7 @@ subnet = {
     route_table                                    = true
   },
   h-eus2-snet-privatednsin = {
-    subnet_range                                   = ["10.251.8.64/27"]
+    subnet_range                                   = ["10.251.22.64/27"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
@@ -169,7 +169,7 @@ subnet = {
     route_table                                    = null
   },
   h-eus2-snet-privatednsout = {
-    subnet_range                                   = ["10.251.8.96/27"]
+    subnet_range                                   = ["10.251.22.96/27"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
@@ -184,7 +184,7 @@ subnet = {
 
 # TODO: Examples - Need to set with appropriate route rules
 route_tables = [
-   {
+  {
     name                          = "h-eus2-rt-appgw"
     vnet                          = "h-eus2-vnet-appgw"
     disable_bgp_route_propagation = false
@@ -280,7 +280,7 @@ route_tables = [
     ]
     vnetlocal_routes = []
   },
-    {
+  {
     name                          = "h-eus2-rt-sdwanvinside"
     vnet                          = "h-eus2-vnet-hub"
     disable_bgp_route_propagation = false
@@ -323,7 +323,7 @@ nsgs = [
         description                                = "Allow All Inbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "110"
+        priority                                   = "210"
         direction                                  = "Inbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -356,7 +356,7 @@ nsgs = [
         description                                = "Allow All Inbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "110"
+        priority                                   = "210"
         direction                                  = "Inbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -389,7 +389,7 @@ nsgs = [
         description                                = "Allow All Inbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "110"
+        priority                                   = "210"
         direction                                  = "Inbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -422,7 +422,7 @@ nsgs = [
         description                                = "Allow All Inbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "110"
+        priority                                   = "210"
         direction                                  = "Inbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -456,7 +456,7 @@ nsgs = [
         description                                = "Allow All Inbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "110"
+        priority                                   = "210"
         direction                                  = "Inbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -489,7 +489,7 @@ nsgs = [
         description                                = "Allow All Inbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "110"
+        priority                                   = "210"
         direction                                  = "Inbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -522,7 +522,7 @@ nsgs = [
         description                                = "Allow All Inbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "110"
+        priority                                   = "210"
         direction                                  = "Inbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -555,7 +555,7 @@ nsgs = [
         description                                = "Allow All Inbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "110"
+        priority                                   = "210"
         direction                                  = "Inbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -588,7 +588,7 @@ nsgs = [
         description                                = "Allow All Inbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "110"
+        priority                                   = "210"
         direction                                  = "Inbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -621,7 +621,7 @@ nsgs = [
         description                                = "Allow All Inbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "110"
+        priority                                   = "210"
         direction                                  = "Inbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -654,7 +654,7 @@ nsgs = [
         description                                = "Allow All Inbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "110"
+        priority                                   = "210"
         direction                                  = "Inbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -687,7 +687,7 @@ nsgs = [
         description                                = "Allow All Inbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "110"
+        priority                                   = "210"
         direction                                  = "Inbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -744,8 +744,8 @@ subnet_route_table_associations = {
     subnet      = "h-eus2-snet-ftdvdiag"
     route_table = "h-eus2-rt-ftdvdiag"
   }
-  
+
 }
 
-bastion_name = "hcusbas"
+bastion_name = "heus2bas"
 

@@ -22,7 +22,7 @@ resource "azurerm_application_gateway" "this" {
     for_each = var.backend_address_pools
     content {
       name = backend_address_pool.key
-      #fqdns        = backend_address_pool.value.fqdns
+      fqdns        = backend_address_pool.value.fqdns
       ip_addresses = backend_address_pool.value.ip_addresses
     }
   }
@@ -112,4 +112,15 @@ resource "azurerm_application_gateway" "this" {
       password = ssl_certificate.value.password
     }
   }
+}
+
+
+####################################################################################
+## This is used to associate a Virtual Machine to the Backend pool with the NIC
+####################################################################################
+
+resource "azurerm_network_interface_application_gateway_backend_address_pool_association" "example" {
+  network_interface_id    = data.azurerm_network_interface.this.id
+  ip_configuration_name   = "testconfiguration1"
+  backend_address_pool_id = azurerm_application_gateway.network.backend_address_pool[0].id
 }

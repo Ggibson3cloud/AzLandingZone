@@ -11,7 +11,7 @@ terraform {
     resource_group_name  = "ss-cus-rg-terraform"                          # RG Name
     storage_account_name = "sscussatfstate"                               # SA Name
     container_name       = "tfstate"                                      # Default for TFOS
-    key                  = "Jewelers.sharedservice_law.terraform.tfstate" # Key for Deployment
+    key                  = "Jewelers.disaster_recovery_sharedservice_law.terraform.tfstate" # Key for Deployment
   }
 }
 

@@ -14,7 +14,7 @@
 #################################################################
 #################################################################
 
-subscription_id = "87aa7e85-aae4-4190-912c-1ce47b69f963"
+subscription_id = "c235f0a6-d999-4743-ae3f-b5d8e93ad7ba"
 
 
 location = "centralus" // 
@@ -80,16 +80,16 @@ subnet = { ##update
     nsg                                            = null
     route_table                                    = true
   },
-    t-cus-snet-sqlmi = {
-    subnet_range                                   = ["10.130.60.0/24"]
-    service_endpoints                              = []
-     delegation_name                                = "Microsoft.Sql/managedInstances"
-    delegation_actions                             = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action", "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"]
-    enforce_private_link_endpoint_network_policies = true
-    vnet                                           = "t-cus-vnet-sql"
-    nsg                                            = "t-cus-nsg-sqlmi"
-    route_table                                    = true
-  },
+  #   t-cus-snet-sqlmi = {
+  #   subnet_range                                   = ["10.130.60.0/24"]
+  #   service_endpoints                              = []
+  #    delegation_name                                = "Microsoft.Sql/managedInstances"
+  #   delegation_actions                             = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action", "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"]
+  #   enforce_private_link_endpoint_network_policies = true
+  #   vnet                                           = "t-cus-vnet-sql"
+  #   nsg                                            = "t-cus-nsg-sqlmi"
+  #   route_table                                    = true
+  # },
 }
 
 nsgs = [
@@ -159,39 +159,39 @@ nsgs = [
       }
     ]
   },
-    {
-    name = "t-cus-nsg-sqlmi"
-    rules = [
-      {
-        description                                = "Allow All Inbound"
-        protocol                                   = "*"
-        access                                     = "Allow"
-        priority                                   = "110"
-        direction                                  = "Inbound"
-        destination_address_prefix                 = "*"
-        destination_application_security_group_ids = null
-        destination_port_range                     = "*"
-        name                                       = "Allow_All_Inbound"
-        source_address_prefix                      = "*"
-        source_application_security_group_ids      = null
-        source_port_range                          = "*"
-      },
-      {
-        description                                = "Allow All Outbound"
-        protocol                                   = "*"
-        access                                     = "Allow"
-        priority                                   = "120"
-        direction                                  = "Outbound"
-        destination_address_prefix                 = "*"
-        destination_application_security_group_ids = null
-        destination_port_range                     = "*"
-        name                                       = "Allow_All_Outbound"
-        source_address_prefix                      = "*"
-        source_application_security_group_ids      = null
-        source_port_range                          = "*"
-      }
-    ]
-  },
+  #   {
+  #   name = "t-cus-nsg-sqlmi"
+  #   rules = [
+  #     {
+  #       description                                = "Allow All Inbound"
+  #       protocol                                   = "*"
+  #       access                                     = "Allow"
+  #       priority                                   = "110"
+  #       direction                                  = "Inbound"
+  #       destination_address_prefix                 = "*"
+  #       destination_application_security_group_ids = null
+  #       destination_port_range                     = "*"
+  #       name                                       = "Allow_All_Inbound"
+  #       source_address_prefix                      = "*"
+  #       source_application_security_group_ids      = null
+  #       source_port_range                          = "*"
+  #     },
+  #     {
+  #       description                                = "Allow All Outbound"
+  #       protocol                                   = "*"
+  #       access                                     = "Allow"
+  #       priority                                   = "120"
+  #       direction                                  = "Outbound"
+  #       destination_address_prefix                 = "*"
+  #       destination_application_security_group_ids = null
+  #       destination_port_range                     = "*"
+  #       name                                       = "Allow_All_Outbound"
+  #       source_address_prefix                      = "*"
+  #       source_application_security_group_ids      = null
+  #       source_port_range                          = "*"
+  #     }
+  #   ]
+  # },
 ]
 
 route_tables = [
@@ -211,8 +211,8 @@ route_tables = [
     vnetlocal_routes = []
   },
   {
-    name                          = "t-cus-rt-servers"  #update
-    vnet                          = "t-cus-vnet-sql" #update
+    name                          = "t-cus-rt-servers" #update
+    vnet                          = "t-cus-vnet-sql"   #update
     disable_bgp_route_propagation = false
     nva_routes = [
       {
@@ -239,21 +239,21 @@ route_tables = [
     ]
     vnetlocal_routes = []
   },
-    {
-    name                          = "t-cus-rt-sqlmi"   #update
-    vnet                          = "t-cus-vnet-sql" #update
-    disable_bgp_route_propagation = false
-    nva_routes = [
-      {
-        name           = "defaultRoute"
-        address_prefix = "0.0.0.0/0"
-        next_hop_ip    = "10.251.10.70"
-      },
+  #   {
+  #   name                          = "t-cus-rt-sqlmi"   #update
+  #   vnet                          = "t-cus-vnet-sql" #update
+  #   disable_bgp_route_propagation = false
+  #   nva_routes = [
+  #     {
+  #       name           = "defaultRoute"
+  #       address_prefix = "0.0.0.0/0"
+  #       next_hop_ip    = "10.251.10.70"
+  #     },
 
 
-    ]
-    vnetlocal_routes = []
-  },
+  #   ]
+  #   vnetlocal_routes = []
+  # },
 ]
 
 subnet_route_table_associations = {
@@ -265,15 +265,17 @@ subnet_route_table_associations = {
     subnet      = "t-cus-snet-servers"
     route_table = "t-cus-rt-servers"
   }
-    "subnet3" = {
-    subnet      = "t-cus-snet-sqlmi"
-    route_table = "t-cus-rt-sqlmi"
-  }
+  #   "subnet3" = {
+  #   subnet      = "t-cus-snet-sqlmi"
+  #   route_table = "t-cus-rt-sqlmi"
+  # }
   "subnet4" = {
     subnet      = "t-cus-snet-privendpoint"
     route_table = "t-cus-rt-privendpoint"
   }
-  
+
 }
+
+key_vault_name = "t-cus-kv-sql01" ###"icusidentitykv" ##update
 
 hubid = "3a5271d7-a7d6-4584-818c-238fa6355819" 

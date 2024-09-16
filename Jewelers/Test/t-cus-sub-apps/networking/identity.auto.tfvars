@@ -80,6 +80,16 @@ subnet = { ##update
     nsg                                            = null
     route_table                                    = true
   },
+    t-cus-snet-appgateway = {
+    subnet_range                                   = ["10.130.51.0/25"]
+    service_endpoints                              = []
+    delegation_name                                = null
+    delegation_actions                             = null
+    enforce_private_link_endpoint_network_policies = true
+    vnet                                           = "t-cus-vnet-apps"
+    nsg                                            = null
+    route_table                                    = true
+  },
 }
 
 nsgs = [

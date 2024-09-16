@@ -7,10 +7,10 @@ terraform {
   }
 
   backend "azurerm" {
-    subscription_id      = "fc0f9a38-a35a-479a-a5ab-65bfd51dd52f"  # SubID SA resides
-    resource_group_name  = "ss-cus-rg-terraform"                   # RG Name
-    storage_account_name = "sscussatfstate"                        # SA Name
-    container_name       = "tfstate"                               # Default for TFOS
+    subscription_id      = "fc0f9a38-a35a-479a-a5ab-65bfd51dd52f"     # SubID SA resides
+    resource_group_name  = "ss-cus-rg-terraform"                      # RG Name
+    storage_account_name = "sscussatfstate"                           # SA Name
+    container_name       = "tfstate"                                  # Default for TFOS
     key                  = "jewelers_test_rg_tools.terraform.tfstate" # Key for Deployment ##Update
   }
 }

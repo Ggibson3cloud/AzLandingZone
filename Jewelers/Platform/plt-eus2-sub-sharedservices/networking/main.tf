@@ -103,7 +103,7 @@ resource "azurerm_virtual_network_peering" "hub_01_to_mgmt_01" {
   name                         = "hub_vnet_to_sharedservices_vnet"
   resource_group_name          = data.azurerm_resource_group.hub_rg.name
   virtual_network_name         = data.azurerm_virtual_network.hub_vnet.name
-  remote_virtual_network_id    = module.vnet["o-cus-vnet-ss"].id
+  remote_virtual_network_id    = module.vnet["o-eus2-vnet-ss"].id
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true
   allow_gateway_transit        = true
@@ -112,7 +112,7 @@ resource "azurerm_virtual_network_peering" "hub_01_to_mgmt_01" {
 resource "azurerm_virtual_network_peering" "mgmt_01_to_hub_01" {
   name                         = "sharedservices_vnet_to_hub_vnet"
   resource_group_name          = module.resource_group.name
-  virtual_network_name         = module.vnet["o-cus-vnet-ss"].vnet_name
+  virtual_network_name         = module.vnet["o-eus2-vnet-ss"].vnet_name
   remote_virtual_network_id    = data.azurerm_virtual_network.hub_vnet.id
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true

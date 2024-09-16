@@ -6,29 +6,29 @@
 #################################################################
 ######################### Subscriptions #########################
 
-# PLT-CUS-Hub = 3a5271d7-a7d6-4584-818c-238fa6355819
-# PLT-CUS-Identity = 1d8bcd67-7874-4cfa-9da0-06038011c26b
-# PLT-CUS-SharedService = 
+# PLT-eus2-Hub = 3a5271d7-a7d6-4584-818c-238fa6355819
+# PLT-eus2-Identity = 1d8bcd67-7874-4cfa-9da0-06038011c26b
+# PLT-eus2-SharedService = 
 
 
 #################################################################
 #################################################################
 
-subscription_id = "fc0f9a38-a35a-479a-a5ab-65bfd51dd52f"
+subscription_id = "9c5c8a97-3c45-4ba3-b3f2-91da940ac498"
 
 
-location = "centralus" // 
+location = "eastus2" // 
 
 tags = {
   Applications  = "Networking"
   BusinessOwner = "IT"
   ITOwner       = "Networking"
   CreatedBy     = "ggibson@3cloudsolutions.com"
-  CreatedOn     = "06/24/2024"
+  CreatedOn     = "08/29/2024"
   Department    = "IT"
-  Description   = "Shared Services"
-  DisplayName   = "Shared Services"
-  Environment   = "Production Hub SS"
+  Description   = "DR Shared Services"
+  DisplayName   = "DR Shared Services"
+  Environment   = "DR Production Hub SS"
   Tier          = "1"
 }
 
@@ -36,46 +36,46 @@ tags = {
 #---------------------------------------------------------
 # Resource Group Names
 #---------------------------------------------------------
-rg_name = "o-cus-rg-ss"
+rg_name = "o-eus2-rg-ss"
 
 #---------------------------------------------------------
 # VNETs
 #---------------------------------------------------------
 vnets = [
   {
-    resource_group = "o-cus-rg-ss"
-    name           = "o-cus-vnet-ss"
-    cidr           = ["10.120.8.0/24"]
-    dns_servers    = ["10.251.8.68"]
+    resource_group = "o-eus2-rg-ss"
+    name           = "o-eus2-vnet-ss"
+    cidr           = ["10.121.8.0/24"]
+    dns_servers    = []
   }
 ]
 
 subnet = {
-  o-cus-snet-servers = {
-    subnet_range                                   = ["10.120.8.0/26"]
+  o-eus2-snet-servers = {
+    subnet_range                                   = ["10.121.8.0/26"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
     enforce_private_link_endpoint_network_policies = true
-    vnet                                           = "o-cus-vnet-ss"
-    nsg                                            = "o-cus-nsg-servers"
+    vnet                                           = "o-eus2-vnet-ss"
+    nsg                                            = "o-eus2-nsg-servers"
     route_table                                    = true
   }
-  AzureBastionSubnet = {
-    subnet_range                                   = ["10.120.8.64/26"]
+  o-eus2-snet-sql = {
+    subnet_range                                   = ["10.121.8.64/26"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
     enforce_private_link_endpoint_network_policies = true
-    vnet                                           = "o-cus-vnet-ss"
-    nsg                                            = "o-cus-nsg-AzureBastionSubnet"
+    vnet                                           = "o-eus2-vnet-ss"
+    nsg                                            = "o-eus2-nsg-o-eus2-snet-sql"
     route_table                                    = true
   }
 }
 
 nsgs = [
   {
-    name = "o-cus-nsg-servers"
+    name = "o-eus2-nsg-servers"
     rules = [
       {
         description                                = "Allow All Inbound"
@@ -108,7 +108,7 @@ nsgs = [
     ]
   },
   {
-    name = "o-cus-nsg-AzureBastionSubnet"
+    name = "o-eus2-nsg-sql"
     rules = [
       {
         description                                = "Allow All Inbound"
@@ -143,28 +143,28 @@ nsgs = [
 ]
 route_tables = [
   {
-    name                          = "o-cus-rt-servers"
-    vnet                          = "o-cus-vnet-ss"
+    name                          = "o-eus2-rt-servers"
+    vnet                          = "o-eus2-vnet-ss"
     disable_bgp_route_propagation = false
     nva_routes = [
       {
         name           = "defaultRoute"
         address_prefix = "0.0.0.0/0"
-        next_hop_ip    = "10.251.10.70"
+        next_hop_ip    = "10.251.20.70"
       },
 
     ]
     vnetlocal_routes = []
   },
   {
-    name                          = "o-cus-rt-AzureBastionSubnet"
-    vnet                          = "o-cus-vnet-ss"
+    name                          = "o-eus2-rt-o-eus2-snet-sql"
+    vnet                          = "o-eus2-vnet-ss"
     disable_bgp_route_propagation = false
     nva_routes = [
       {
         name           = "defaultRoute"
         address_prefix = "0.0.0.0/0"
-        next_hop_ip    = "10.251.10.70"
+        next_hop_ip    = "10.251.20.70"
       },
 
     ]
@@ -174,8 +174,8 @@ route_tables = [
 
 subnet_route_table_associations = {
   "subnet1" = {
-    subnet      = "o-cus-snet-servers"
-    route_table = "o-cus-rt-servers"
+    subnet      = "o-eus2-snet-servers"
+    route_table = "o-eus2-rt-servers"
   }
 }
 
@@ -183,7 +183,7 @@ subnet_route_table_associations = {
 #---------------------
 # KEY VAULT
 #---------------------
-key_vault_name = "o-cus-kv-sharedservice-01"
+key_vault_name = "o-eus2-kv-sharedservice-01"
 
 # key_vault_default_access_policy = {
 #   
@@ -195,6 +195,6 @@ key_vault_name = "o-cus-kv-sharedservice-01"
 #   }
 # }
 
-#bastion_name = "h-cus-bastion-bastion01"
 
-hubid = "3a5271d7-a7d6-4584-818c-238fa6355819" 
+
+hubid = "8cc21a98-4584-4bed-8643-4cb6fd0d7bbf" 

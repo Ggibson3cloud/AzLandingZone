@@ -60,7 +60,7 @@ subnet = {
     vnet                                           = "o-cus-vnet-ss"
     nsg                                            = "o-cus-nsg-servers"
     route_table                                    = true
-  }
+  },
   AzureBastionSubnet = {
     subnet_range                                   = ["10.120.8.64/26"]
     service_endpoints                              = []
@@ -69,6 +69,17 @@ subnet = {
     enforce_private_link_endpoint_network_policies = true
     vnet                                           = "o-cus-vnet-ss"
     nsg                                            = "o-cus-nsg-AzureBastionSubnet"
+    route_table                                    = true
+  },
+
+  o-cus-snet-sql = {
+    subnet_range                                   = ["10.120.8.128/26"]
+    service_endpoints                              = []
+    delegation_name                                = null
+    delegation_actions                             = null
+    enforce_private_link_endpoint_network_policies = true
+    vnet                                           = "o-cus-vnet-ss"
+    nsg                                            = "o-cus-nsg-sql"
     route_table                                    = true
   }
 }
@@ -139,6 +150,39 @@ nsgs = [
         source_port_range                          = "*"
       }
     ]
+  },
+  {
+    name = "o-cus-nsg-sql"
+    rules = [
+      {
+        description                                = "Allow All Inbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "110"
+        direction                                  = "Inbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Inbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      },
+      {
+        description                                = "Allow All Outbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "120"
+        direction                                  = "Outbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Outbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      }
+    ]
   }
 ]
 route_tables = [
@@ -170,12 +214,30 @@ route_tables = [
     ]
     vnetlocal_routes = []
   },
+  {
+    name                          = "o-cus-rt-sql"
+    vnet                          = "o-cus-vnet-ss"
+    disable_bgp_route_propagation = false
+    nva_routes = [
+      {
+        name           = "defaultRoute"
+        address_prefix = "0.0.0.0/0"
+        next_hop_ip    = "10.251.10.70"
+      },
+
+    ]
+    vnetlocal_routes = []
+  },
 ]
 
 subnet_route_table_associations = {
   "subnet1" = {
     subnet      = "o-cus-snet-servers"
     route_table = "o-cus-rt-servers"
+  },
+  "subnet2" = {
+    subnet      = "o-cus-snet-sql"
+    route_table = "o-cus-rt-sql"
   }
 }
 

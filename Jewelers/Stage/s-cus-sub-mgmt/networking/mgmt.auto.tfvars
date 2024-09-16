@@ -26,8 +26,8 @@ tags = {
   CreatedBy     = "ggibson@3cloudsolutions.com"
   CreatedOn     = "06/24/2024"
   Department    = "IT"
-  Description   = "Stage Mgmt "
-  DisplayName   = "Stage Mgmt"
+  Description   = "Stage external "
+  DisplayName   = "Stage external"
   Environment   = "Stage"
   Tier          = "2"
 }
@@ -35,36 +35,36 @@ tags = {
 #---------------------------------------------------------
 # Resource Group Names
 #---------------------------------------------------------
-rg_name = "s-cus-rg-mgmt"
+rg_name = "s-cus-rg-external"
 
 #---------------------------------------------------------
 # VNETs
 #---------------------------------------------------------
 vnets = [ ##update
   {
-    resource_group = "s-cus-rg-mgmt"
-    name           = "s-cus-vnet-mgmt"
+    resource_group = "s-cus-rg-external"
+    name           = "s-cus-vnet-external"
     cidr           = ["10.130.0.0/24"]
     dns_servers    = ["10.251.8.68"]
   }
 ]
 
 subnet = { ##update
-  s-cus-snet-mgmt = {
+  s-cus-snet-external = {
     subnet_range                                   = ["10.130.0.0/26"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
     enforce_private_link_endpoint_network_policies = true
-    vnet                                           = "s-cus-vnet-mgmt"
-    nsg                                            = "s-cus-nsg-mgmt"
+    vnet                                           = "s-cus-vnet-external"
+    nsg                                            = "s-cus-nsg-external"
     route_table                                    = true
   },
 }
 
 nsgs = [
   {
-    name = "s-cus-nsg-mgmt"
+    name = "s-cus-nsg-external"
     rules = [
       {
         description                                = "Allow All Inbound"
@@ -100,8 +100,8 @@ nsgs = [
 
 route_tables = [
   {
-    name                          = "s-cus-rt-mgmt"    #update
-    vnet                          = "s-cus-vnet-mgmt" #update
+    name                          = "s-cus-rt-external"    #update
+    vnet                          = "s-cus-vnet-external" #update
     disable_bgp_route_propagation = false
     nva_routes = [
       {
@@ -118,12 +118,12 @@ route_tables = [
 
 subnet_route_table_associations = {
   "subnet1" = {
-    subnet      = "s-cus-snet-mgmt"
-    route_table = "s-cus-rt-mgmt"
+    subnet      = "s-cus-snet-external"
+    route_table = "s-cus-rt-external"
   }
 }
 
 
-key_vault_name = "s-cus-kv-mgmt01" ###"icusidentitykv" ##update
+key_vault_name = "s-cus-kv-external01" ###"icusidentitykv" ##update
 
 hubid = "3a5271d7-a7d6-4584-818c-238fa6355819" 

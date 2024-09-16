@@ -110,7 +110,7 @@ resource "azurerm_virtual_network_peering" "hub_to_identity" {
   name                         = "hub_vnet_to_identity_vnet"
   resource_group_name          = data.azurerm_resource_group.hub_rg.name
   virtual_network_name         = data.azurerm_virtual_network.hub_vnet.name
-  remote_virtual_network_id    = module.vnet["i-cus-vnet-identity"].id
+  remote_virtual_network_id    = module.vnet["i-eus2-vnet-identity"].id
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true
   allow_gateway_transit        = true
@@ -119,7 +119,7 @@ resource "azurerm_virtual_network_peering" "hub_to_identity" {
 resource "azurerm_virtual_network_peering" "identity_to_hub" {
   name                         = "identity_vnet_to_hub_vnet"
   resource_group_name          = var.rg_name
-  virtual_network_name         = module.vnet["i-cus-vnet-identity"].vnet_name
+  virtual_network_name         = module.vnet["i-eus2-vnet-identity"].vnet_name
   remote_virtual_network_id    = data.azurerm_virtual_network.hub_vnet.id
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true

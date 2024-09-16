@@ -1,5 +1,5 @@
-resource_group_name = "h-cus-rg-privatednszones"
-location            = "centralus"
+resource_group_name = "h-eus2-rg-privatednszones"
+location            = "eastus2"
 vnet_id             = "/subscriptions/3a5271d7-a7d6-4584-818c-238fa6355819/resourceGroups/h-cus-rg-hub/providers/Microsoft.Network/virtualNetworks/h-cus-vnet-hub"
 subscriptionid      = "3a5271d7-a7d6-4584-818c-238fa6355819"
 
@@ -10,9 +10,9 @@ tags = {
   CreatedBy     = "ggibson@3cloudsolutions.com"
   CreatedOn     = "06/24/2024"
   Department    = "IT"
-  Description   = "Private DNS Zones"
-  DisplayName   = "Private DNS Zones"
-  Environment   = "Production Hub"
+  Description   = "DR Private DNS Zones"
+  DisplayName   = "DR Private DNS Zones"
+  Environment   = "DR Production Hub"
   Tier          = "1"
 }
 

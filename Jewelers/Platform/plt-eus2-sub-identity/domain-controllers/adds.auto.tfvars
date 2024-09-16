@@ -1,17 +1,29 @@
-location       = "centralus"
-rg_name        = "i-cus-rg-adds"
-key_vault_name = "i-cus-kv-identity"
+location       = "eastus2"
+rg_name        = "i-eus2-rg-adds"
+key_vault_name = "i-eus2-kv-identity01"
 
 #################################################################
 ######################### Subscriptions #########################
 #################################################################
 
+tags = {
+  Applications  = "Networking"
+  BusinessOwner = "IT"
+  ITOwner       = "Networking"
+  CreatedBy     = "ggibson@3cloudsolutions.com"
+  CreatedOn     = "09/06/2024"
+  Department    = "IT"
+  Description   = "Identity Resources"
+  DisplayName   = "Identity Resources"
+  Environment   = "Production Disaster Recovery Identity"
+  Tier          = "1"
+}
 
-subscription = "1d8bcd67-7874-4cfa-9da0-06038011c26b"
+subscription = "edd5864f-abc5-4e00-92a8-0037a1b634ad"
 
 
 ADDS = {
-  i-cus-vm-adds01 = {
+  i-eus2-vm-adds1 = {
     private_ip_address_allocation = "Static"
     static_ip_address             = 5
     dns_servers                   = []
@@ -26,12 +38,12 @@ ADDS = {
     disk_caching                  = "None"
 
   },
-  i-cus-vm-adds02 = {
+  i-eus2-vm-adds2 = {
     private_ip_address_allocation = "Static"
     static_ip_address             = 6
     dns_servers                   = []
     vm_size                       = "Standard_D4lds_v5"
-    zone                          = 2
+    zone                          = 3
     cache                         = "ReadWrite"
     storage_account_type          = "StandardSSD_LRS"
     publisher                     = "MicrosoftWindowsServer"
@@ -40,12 +52,12 @@ ADDS = {
     lun                           = 1
     disk_caching                  = "None"
   },
-    i-cus-vm-inf01 = {
+  i-eus2-vm-inf01 = {
     private_ip_address_allocation = "Static"
     static_ip_address             = 4
     dns_servers                   = []
     vm_size                       = "Standard_B4ms"
-    zone                          = 2
+    zone                          = 1
     cache                         = "ReadWrite"
     storage_account_type          = "StandardSSD_LRS"
     publisher                     = "MicrosoftWindowsServer"

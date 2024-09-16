@@ -98,8 +98,8 @@ module "bastion" {
 resource "azurerm_virtual_network_peering" "hub_to_appgw" {
   name                         = "hub_vnet_to_appgw_vnet"
   resource_group_name          = var.rg_name
-  virtual_network_name         = module.vnet["h-cus-vnet-hub"].vnet_name
-  remote_virtual_network_id    = module.vnet["h-cus-vnet-appgw"].id
+  virtual_network_name         = module.vnet["h-eus2-vnet-hub"].vnet_name
+  remote_virtual_network_id    = module.vnet["h-eus2-vnet-appgw"].id
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true
   allow_gateway_transit        = true
@@ -108,8 +108,8 @@ resource "azurerm_virtual_network_peering" "hub_to_appgw" {
 resource "azurerm_virtual_network_peering" "appgw_to_hub" {
   name                         = "appgw_vnet_to_hub_vnet"
   resource_group_name          = var.rg_name
-  virtual_network_name         = module.vnet["h-cus-vnet-appgw"].vnet_name
-  remote_virtual_network_id    = module.vnet["h-cus-vnet-hub"].id
+  virtual_network_name         = module.vnet["h-eus2-vnet-appgw"].vnet_name
+  remote_virtual_network_id    = module.vnet["h-eus2-vnet-hub"].id
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true
   allow_gateway_transit        = false

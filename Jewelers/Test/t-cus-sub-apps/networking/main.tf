@@ -93,7 +93,7 @@ module "ss_nsgs" {
 
 
 #---------------------------------------------------------
-# Identity Keyvault 
+# Test Keyvault 
 #---------------------------------------------------------
 module "keyvault" {
   source                        = "../../../../Jewelers-modules/base/key_vault"

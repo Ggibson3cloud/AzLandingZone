@@ -1,6 +1,6 @@
 subscription_id = "bef566e2-dc43-4d85-ac26-c336abe5dd92"
 
-rg_name = "t-cus-rg-imageright"
+rg_name  = "t-cus-rg-imageright"
 location = "centralus"
 tags = {
   Applications  = "Imageright Test 04"

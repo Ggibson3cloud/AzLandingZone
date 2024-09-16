@@ -110,14 +110,24 @@ subnet = { ##update
     nsg                                            = "p-cus-nsg-images"
     route_table                                    = true
   },
-    p-cus-snet-netapp = {
+  p-cus-snet-netapp = {
     subnet_range                                   = ["10.120.170.64/27"]
     service_endpoints                              = []
-    delegation_name                                = "Microsoft.NetApp/volumes"
+    delegation_name                                = "Microsoft.Netapp/volumes"
     delegation_actions                             = null
     enforce_private_link_endpoint_network_policies = true
     vnet                                           = "p-cus-vnet-avd"
     nsg                                            = "p-cus-nsg-netapp"
+    route_table                                    = true
+  },
+  p-cus-snet-hostpool5 = {
+    subnet_range                                   = ["10.120.172.0/23"]
+    service_endpoints                              = []
+    delegation_name                                = null
+    delegation_actions                             = null
+    enforce_private_link_endpoint_network_policies = true
+    vnet                                           = "p-cus-vnet-avd"
+    nsg                                            = "p-cus-nsg-hostpool5"
     route_table                                    = true
   },
 }
@@ -288,8 +298,41 @@ nsgs = [
       }
     ]
   },
-    {
+  {
     name = "p-cus-nsg-netapp"
+    rules = [
+      {
+        description                                = "Allow All Inbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "110"
+        direction                                  = "Inbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Inbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      },
+      {
+        description                                = "Allow All Outbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "120"
+        direction                                  = "Outbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Outbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      }
+    ]
+  },
+  {
+    name = "p-cus-nsg-hostpool5"
     rules = [
       {
         description                                = "Allow All Inbound"
@@ -327,7 +370,7 @@ nsgs = [
 route_tables = [
   {
     name                          = "p-cus-rt-hostpool1" #update
-    vnet                          = "p-cus-vnet-avd"              #update
+    vnet                          = "p-cus-vnet-avd"     #update
     disable_bgp_route_propagation = false
     nva_routes = [
       {
@@ -342,7 +385,7 @@ route_tables = [
   },
   {
     name                          = "p-cus-rt-hostpool2" #update
-    vnet                          = "p-cus-vnet-avd"              #update
+    vnet                          = "p-cus-vnet-avd"     #update
     disable_bgp_route_propagation = false
     nva_routes = [
       {
@@ -356,7 +399,7 @@ route_tables = [
   },
   {
     name                          = "p-cus-rt-hostpool3" #update
-    vnet                          = "p-cus-vnet-avd"              #update
+    vnet                          = "p-cus-vnet-avd"     #update
     disable_bgp_route_propagation = false
     nva_routes = [
       {
@@ -370,7 +413,7 @@ route_tables = [
   },
   {
     name                          = "p-cus-rt-hostpool4" #update
-    vnet                          = "p-cus-vnet-avd"              #update
+    vnet                          = "p-cus-vnet-avd"     #update
     disable_bgp_route_propagation = false
     nva_routes = [
       {
@@ -384,7 +427,7 @@ route_tables = [
   },
   {
     name                          = "p-cus-rt-images" #update
-    vnet                          = "p-cus-vnet-avd"           #update
+    vnet                          = "p-cus-vnet-avd"  #update
     disable_bgp_route_propagation = false
     nva_routes = [
       {
@@ -411,9 +454,23 @@ route_tables = [
     ]
     vnetlocal_routes = []
   },
-    {
+  {
     name                          = "p-cus-rt-netapp" #update
-    vnet                          = "p-cus-vnet-avd"              #update
+    vnet                          = "p-cus-vnet-avd"  #update
+    disable_bgp_route_propagation = false
+    nva_routes = [
+      {
+        name           = "defaultRoute"
+        address_prefix = "0.0.0.0/0"
+        next_hop_ip    = "10.251.10.70"
+      },
+
+    ]
+    vnetlocal_routes = []
+  },
+  {
+    name                          = "p-cus-rt-hostpool5" #update
+    vnet                          = "p-cus-vnet-avd"     #update
     disable_bgp_route_propagation = false
     nva_routes = [
       {
@@ -452,9 +509,14 @@ subnet_route_table_associations = {
     subnet      = "p-cus-snet-privatelink"
     route_table = "p-cus-rt-privatelink"
   }
-   "subnet7" = {
+  "subnet7" = {
     subnet      = "p-cus-snet-netapp"
     route_table = "p-cus-rt-netapp"
+  }
+
+  "subnet8" = {
+    subnet      = "p-cus-snet-hostpool5"
+    route_table = "p-cus-rt-hostpool5"
   }
 }
 

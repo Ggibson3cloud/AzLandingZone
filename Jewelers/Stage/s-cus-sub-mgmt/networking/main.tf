@@ -105,19 +105,19 @@ module "keyvault" {
 #---------------------------------------------------------
 resource "azurerm_virtual_network_peering" "hub_to_identity" {
   provider                     = azurerm.hub
-  name                         = "hub_vnet_to_stage_mgmt_vnet"
+  name                         = "hub_vnet_to_stage_external_vnet"
   resource_group_name          = data.azurerm_resource_group.hub_rg.name
   virtual_network_name         = data.azurerm_virtual_network.hub_vnet.name
-  remote_virtual_network_id    = module.vnet["s-cus-vnet-mgmt"].id ##update format "i-cus-vnet-identity"
+  remote_virtual_network_id    = module.vnet["s-cus-vnet-external"].id ##update format "i-cus-vnet-identity"
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true
   allow_gateway_transit        = true
 }
 
 resource "azurerm_virtual_network_peering" "identity_to_hub" {
-  name                         = "stage_mgmt_vnet_to_hub_vnet"
+  name                         = "stage_external_vnet_to_hub_vnet"
   resource_group_name          = module.resource_group.name
-  virtual_network_name         = module.vnet["s-cus-vnet-mgmt"].vnet_name ##update format "i-cus-vnet-identity"
+  virtual_network_name         = module.vnet["s-cus-vnet-external"].vnet_name ##update format "i-cus-vnet-identity"
   remote_virtual_network_id    = data.azurerm_virtual_network.hub_vnet.id
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true

@@ -7,16 +7,17 @@ terraform {
   }
 
   backend "azurerm" {
-    subscription_id      = "fc0f9a38-a35a-479a-a5ab-65bfd51dd52f"     # SubID SA resides
-    resource_group_name  = "ss-cus-rg-terraform"                      # RG Name
-    storage_account_name = "sscussatfstate"                           # SA Name
-    container_name       = "tfstate"                                  # Default for TFOS
-    key                  = "jewelers_alzn_identity.terraform.tfstate" # Key for Deployment
+    subscription_id      = "fc0f9a38-a35a-479a-a5ab-65bfd51dd52f"        # SubID SA resides
+    resource_group_name  = "ss-cus-rg-terraform"                         # RG Name
+    storage_account_name = "sscussatfstate"                              # SA Name
+    container_name       = "tfstate"                                     # Default for TFOS
+    key                  = "jewelers_alzndr__identity.terraform.tfstate" # Key for Deployment
   }
 }
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
+  skip_provider_registration = true
   subscription_id = var.subscription_id
   features {
     key_vault {
@@ -30,6 +31,7 @@ provider "azurerm" {
 }
 
 provider "azurerm" {
+  skip_provider_registration = true
   alias           = "hub"
   subscription_id = var.hubid
   features {}

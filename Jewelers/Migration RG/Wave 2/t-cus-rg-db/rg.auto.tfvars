@@ -1,6 +1,6 @@
-subscription_id = "" ##test sql sub
+subscription_id = "c235f0a6-d999-4743-ae3f-b5d8e93ad7ba" ##test sql sub
 
-rg_name = "t-cus-rg-db"
+rg_name  = "t-cus-rg-db"
 location = "centralus"
 tags = {
   Applications  = "Networking"

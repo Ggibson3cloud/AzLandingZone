@@ -7,17 +7,17 @@
 #################################################################
 ######################### Subscriptions #########################
 
-# PLT-CUS-Hub = 3a5271d7-a7d6-4584-818c-238fa6355819
-# PLT-CUS-Identity = 1d8bcd67-7874-4cfa-9da0-06038011c26b
-# PLT-CUS-SharedService = fc0f9a38-a35a-479a-a5ab-65bfd51dd52f
+# PLT-eus2-Hub = 8cc21a98-4584-4bed-8643-4cb6fd0d7bbf
+# PLT-eus2-Identity = edd5864f-abc5-4e00-92a8-0037a1b634ad
+# PLT-eus2-SharedService = 9c5c8a97-3c45-4ba3-b3f2-91da940ac498
 
 #################################################################
 #################################################################
 
-subscription_id = "1d8bcd67-7874-4cfa-9da0-06038011c26b"
+subscription_id = "edd5864f-abc5-4e00-92a8-0037a1b634ad"
 
 
-location = "centralus" // 
+location = "eastus2" // 
 
 tags = {
   Applications  = "Networking"
@@ -26,65 +26,65 @@ tags = {
   CreatedBy     = "ggibson@3cloudsolutions.com"
   CreatedOn     = "06/24/2024"
   Department    = "IT"
-  Description   = "Identity Resources"
-  DisplayName   = "Identity Resources"
-  Environment   = "Production Identity"
+  Description   = "DR Identity Resources"
+  DisplayName   = "DR Identity Resources"
+  Environment   = "Disaster reProduction Identity"
   Tier          = "1"
 }
 
 #---------------------------------------------------------
 # Resource Group Names
 #---------------------------------------------------------
-rg_name = "i-cus-rg-identity"
+rg_name = "i-eus2-rg-identity"
 
 #---------------------------------------------------------
 # VNETs
 #---------------------------------------------------------
 vnets = [
   {
-    resource_group = "i-cus-rg-identity"
-    name           = "i-cus-vnet-identity"
-    cidr           = ["10.120.0.0/24"]
-    dns_servers    = ["10.251.8.68"]
+    resource_group = "i-eus2-rg-identity"
+    name           = "i-eus2-vnet-identity"
+    cidr           = ["10.121.0.0/24"]
+    dns_servers    = []
   }
 ]
 
 subnet = {
-  i-cus-snet-privatelink = {
-    subnet_range                                   = ["10.120.0.0/26"]
+  i-eus2-snet-privatelink = {
+    subnet_range                                   = ["10.121.0.0/26"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
     enforce_private_link_endpoint_network_policies = true
-    vnet                                           = "i-cus-vnet-identity"
+    vnet                                           = "i-eus2-vnet-identity"
     nsg                                            = null
     route_table                                    = true
   },
-  i-cus-snet-domain = {
-    subnet_range                                   = ["10.120.0.64/26"]
+  i-eus2-snet-domain = {
+    subnet_range                                   = ["10.121.0.64/26"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
     enforce_private_link_endpoint_network_policies = true
-    vnet                                           = "i-cus-vnet-identity"
-    nsg                                            = "i-cus-nsg-domain"
+    vnet                                           = "i-eus2-vnet-identity"
+    nsg                                            = "i-eus2-nsg-domain"
     route_table                                    = true
   },
-  i-cus-snet-identity = {
-    subnet_range                                   = ["10.120.0.128/26"]
+  i-eus2-snet-identity = {
+    subnet_range                                   = ["10.121.0.128/26"]
     service_endpoints                              = []
     delegation_name                                = null
     delegation_actions                             = null
     enforce_private_link_endpoint_network_policies = true
-    vnet                                           = "i-cus-vnet-identity"
-    nsg                                            = "i-cus-nsg-identity"
+    vnet                                           = "i-eus2-vnet-identity"
+    nsg                                            = "i-eus2-nsg-identity"
     route_table                                    = true
   },
 }
 
 nsgs = [
   {
-    name = "i-cus-nsg-identity"
+    name = "i-eus2-nsg-identity"
     rules = [
       {
         description                                = "Allow All Inbound"
@@ -104,7 +104,7 @@ nsgs = [
         description                                = "Allow All Outbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "120"
+        priority                                   = "121"
         direction                                  = "Outbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -117,7 +117,7 @@ nsgs = [
     ]
   },
   {
-    name = "i-cus-nsg-domain"
+    name = "i-eus2-nsg-domain"
     rules = [
       {
         description                                = "Allow All Inbound"
@@ -137,7 +137,7 @@ nsgs = [
         description                                = "Allow All Outbound"
         protocol                                   = "*"
         access                                     = "Allow"
-        priority                                   = "120"
+        priority                                   = "121"
         direction                                  = "Outbound"
         destination_address_prefix                 = "*"
         destination_application_security_group_ids = null
@@ -154,14 +154,14 @@ nsgs = [
 
 route_tables = [
   {
-    name                          = "i-cus-rt-domain"
-    vnet                          = "i-cus-vnet-identity"
+    name                          = "i-eus2-rt-domain"
+    vnet                          = "i-eus2-vnet-identity"
     disable_bgp_route_propagation = false
     nva_routes = [
       {
         name           = "defaultRoute"
         address_prefix = "0.0.0.0/0"
-        next_hop_ip    = "10.251.10.70"
+        next_hop_ip    = "10.251.20.70"
       },
 
 
@@ -169,28 +169,28 @@ route_tables = [
     vnetlocal_routes = []
   },
   {
-    name                          = "i-cus-rt-identity"
-    vnet                          = "i-cus-vnet-identity"
+    name                          = "i-eus2-rt-identity"
+    vnet                          = "i-eus2-vnet-identity"
     disable_bgp_route_propagation = false
     nva_routes = [
       {
         name           = "defaultRoute"
         address_prefix = "0.0.0.0/0"
-        next_hop_ip    = "10.251.10.70"
+        next_hop_ip    = "10.251.20.70"
       },
 
     ]
     vnetlocal_routes = []
   },
   {
-    name                          = "i-cus-rt-privatelink"
-    vnet                          = "i-cus-vnet-identity"
+    name                          = "i-eus2-rt-privatelink"
+    vnet                          = "i-eus2-vnet-identity"
     disable_bgp_route_propagation = false
     nva_routes = [
       {
         name           = "defaultRoute"
         address_prefix = "0.0.0.0/0"
-        next_hop_ip    = "10.251.10.70"
+        next_hop_ip    = "10.251.20.70"
       },
 
 
@@ -201,18 +201,18 @@ route_tables = [
 
 subnet_route_table_associations = {
   "subnet1" = {
-    subnet      = "i-cus-snet-domain"
-    route_table = "i-cus-rt-domain"
+    subnet      = "i-eus2-snet-domain"
+    route_table = "i-eus2-rt-domain"
   }
   "subnet2" = {
-    subnet      = "i-cus-snet-identity"
-    route_table = "i-cus-rt-identity"
+    subnet      = "i-eus2-snet-identity"
+    route_table = "i-eus2-rt-identity"
   }
   "subnet2" = {
-    subnet      = "i-cus-snet-privatelink"
-    route_table = "i-cus-rt-privatelink"
+    subnet      = "i-eus2-snet-privatelink"
+    route_table = "i-eus2-rt-privatelink"
   }
 }
-key_vault_name = "i-cus-kv-identity01"
+key_vault_name = "i-eus2-kv-identity01"
 
-hubid = "3a5271d7-a7d6-4584-818c-238fa6355819" 
+hubid = "8cc21a98-4584-4bed-8643-4cb6fd0d7bbf" 

@@ -1,6 +1,6 @@
-subscription_id = "your_subscription_id_here"
+subscription_id = "bef566e2-dc43-4d85-ac26-c336abe5dd92"
 
-rg_name = "rg name"
+rg_name  = "t-cus-rg-tools"
 location = "centralus"
 tags = {
   Applications  = "Foglight Server"
