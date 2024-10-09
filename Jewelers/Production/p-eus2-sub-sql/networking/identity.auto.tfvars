@@ -80,16 +80,46 @@ subnet = { ##update
     nsg                                            = null
     route_table                                    = true
   },
-  #   p-eus2-snet-sqlmi = {
-  #   subnet_range                                   = ["10.121.136.0/23"]
-  #   service_endpoints                              = []
-  #   delegation_name                                = "Microsoft.Sql/managedInstances"
-  #   delegation_actions                             = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action", "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"]
-  #   enforce_private_link_endpoint_network_policies = true
-  #   vnet                                           = "p-eus2-vnet-sql"
-  #   nsg                                            = "p-eus2-nsg-sqlmi"
-  #   route_table                                    = true
-  # },
+  p-eus2-snet-sqlmi = {
+    subnet_range                                   = ["10.121.136.0/23"]
+    service_endpoints                              = []
+    delegation_name                                = "Microsoft.Sql/managedInstances"
+    delegation_actions                             = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action", "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"]
+    enforce_private_link_endpoint_network_policies = true
+    vnet                                           = "p-eus2-vnet-sql"
+    nsg                                            = "p-eus2-nsg-sqlmi"
+    route_table                                    = true
+  },
+  p-eus2-snet-sqlag-c = {
+    subnet_range                                   = ["10.121.138.0/27"]
+    service_endpoints                              = []
+    delegation_name                                = null
+    delegation_actions                             = null
+    enforce_private_link_endpoint_network_policies = true
+    vnet                                           = "p-eus2-vnet-sql"
+    nsg                                            = "p-eus2-nsg-sqlag-c"
+    route_table                                    = true
+  },
+  p-eus2-snet-sqlag-d = {
+    subnet_range                                   = ["10.121.138.32/27"]
+    service_endpoints                              = []
+    delegation_name                                = null
+    delegation_actions                             = null
+    enforce_private_link_endpoint_network_policies = true
+    vnet                                           = "p-eus2-vnet-sql"
+    nsg                                            = "p-eus2-nsg-sqlag-d"
+    route_table                                    = true
+  },
+  p-eus2-snet-sqlag-r = {
+    subnet_range                                   = ["10.121.138.64/27"]
+    service_endpoints                              = []
+    delegation_name                                = null
+    delegation_actions                             = null
+    enforce_private_link_endpoint_network_policies = true
+    vnet                                           = "p-eus2-vnet-sql"
+    nsg                                            = "p-eus2-nsg-sqlag-r"
+    route_table                                    = true
+  },
 }
 
 nsgs = [
@@ -159,39 +189,138 @@ nsgs = [
       }
     ]
   },
-  #   {
-  #   name = "p-eus2-nsg-sqlmi"
-  #   rules = [
-  #     {
-  #       description                                = "Allow All Inbound"
-  #       protocol                                   = "*"
-  #       access                                     = "Allow"
-  #       priority                                   = "110"
-  #       direction                                  = "Inbound"
-  #       destination_address_prefix                 = "*"
-  #       destination_application_security_group_ids = null
-  #       destination_port_range                     = "*"
-  #       name                                       = "Allow_All_Inbound"
-  #       source_address_prefix                      = "*"
-  #       source_application_security_group_ids      = null
-  #       source_port_range                          = "*"
-  #     },
-  #     {
-  #       description                                = "Allow All Outbound"
-  #       protocol                                   = "*"
-  #       access                                     = "Allow"
-  #       priority                                   = "120"
-  #       direction                                  = "Outbound"
-  #       destination_address_prefix                 = "*"
-  #       destination_application_security_group_ids = null
-  #       destination_port_range                     = "*"
-  #       name                                       = "Allow_All_Outbound"
-  #       source_address_prefix                      = "*"
-  #       source_application_security_group_ids      = null
-  #       source_port_range                          = "*"
-  #     }
-  #   ]
-  # },
+  {
+    name = "p-eus2-nsg-sqlmi"
+    rules = [
+      {
+        description                                = "Allow All Inbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "110"
+        direction                                  = "Inbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Inbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      },
+      {
+        description                                = "Allow All Outbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "120"
+        direction                                  = "Outbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Outbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      }
+    ]
+  },
+  {
+    name = "p-eus2-nsg-sqlag-c"
+    rules = [
+      {
+        description                                = "Allow All Inbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "110"
+        direction                                  = "Inbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Inbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      },
+      {
+        description                                = "Allow All Outbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "120"
+        direction                                  = "Outbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Outbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      }
+    ]
+  },
+  {
+    name = "p-eus2-nsg-sqlag-d"
+    rules = [
+      {
+        description                                = "Allow All Inbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "110"
+        direction                                  = "Inbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Inbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      },
+      {
+        description                                = "Allow All Outbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "120"
+        direction                                  = "Outbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Outbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      }
+    ]
+  },
+  {
+    name = "p-eus2-nsg-sqlag-r"
+    rules = [
+      {
+        description                                = "Allow All Inbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "110"
+        direction                                  = "Inbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Inbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      },
+      {
+        description                                = "Allow All Outbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "120"
+        direction                                  = "Outbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Outbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      }
+    ]
+  },
 ]
 
 route_tables = [
@@ -238,20 +367,62 @@ route_tables = [
     ]
     vnetlocal_routes = []
   },
-  #   {
-  #   name                          = "p-eus2-rt-sqlmi"         #update
-  #   vnet                          = "p-eus2-vnet-sql" #update
-  #   disable_bgp_route_propagation = false
-  #   nva_routes = [
-  #     {
-  #       name           = "defaultRoute"
-  #       address_prefix = "0.0.0.0/0"
-  #       next_hop_ip    = "10.251.20.70"
-  #     },
+  {
+    name                          = "p-eus2-rt-sqlmi" #update
+    vnet                          = "p-eus2-vnet-sql" #update
+    disable_bgp_route_propagation = false
+    nva_routes = [
+      {
+        name           = "defaultRoute"
+        address_prefix = "0.0.0.0/0"
+        next_hop_ip    = "10.251.20.70"
+      },
 
-  #   ]
-  #   vnetlocal_routes = []
-  # },
+    ]
+    vnetlocal_routes = []
+  },
+  {
+    name                          = "p-eus2-rt-sqlag-r" #update
+    vnet                          = "p-eus2-vnet-sql"   #update
+    disable_bgp_route_propagation = false
+    nva_routes = [
+      {
+        name           = "defaultRoute"
+        address_prefix = "0.0.0.0/0"
+        next_hop_ip    = "10.251.20.70"
+      },
+
+    ]
+    vnetlocal_routes = []
+  },
+  {
+    name                          = "p-eus2-rt-sqlag-c" #update
+    vnet                          = "p-eus2-vnet-sql"   #update
+    disable_bgp_route_propagation = false
+    nva_routes = [
+      {
+        name           = "defaultRoute"
+        address_prefix = "0.0.0.0/0"
+        next_hop_ip    = "10.251.20.70"
+      },
+
+    ]
+    vnetlocal_routes = []
+  },
+  {
+    name                          = "p-eus2-rt-sqlag-d" #update
+    vnet                          = "p-eus2-vnet-sql"   #update
+    disable_bgp_route_propagation = false
+    nva_routes = [
+      {
+        name           = "defaultRoute"
+        address_prefix = "0.0.0.0/0"
+        next_hop_ip    = "10.251.20.70"
+      },
+
+    ]
+    vnetlocal_routes = []
+  },
 ]
 
 subnet_route_table_associations = {
@@ -267,10 +438,22 @@ subnet_route_table_associations = {
     subnet      = "p-eus2-snet-privendpoint"
     route_table = "p-eus2-rt-privendpoint"
   }
-  #  "subnet1" = {
-  #   subnet      = "p-eus2-snet-sqlmi"
-  #   route_table = "p-eus2-rt-sqlmi"
-  # }
+  "subnet1" = {
+    subnet      = "p-eus2-snet-sqlmi"
+    route_table = "p-eus2-rt-sqlmi"
+  }
+  "subnet5" = {
+    subnet      = "p-eus2-snet-sqlag-c"
+    route_table = "p-eus2-rt-sqlag-c"
+  }
+  "subnet6" = {
+    subnet      = "p-eus2-snet-sqlag-d"
+    route_table = "p-eus2-rt-sqlag-d"
+  }
+  "subnet7" = {
+    subnet      = "p-eus2-snet-sqlag-r"
+    route_table = "p-eus2-rt-sqlag-r"
+  }
 }
 
 

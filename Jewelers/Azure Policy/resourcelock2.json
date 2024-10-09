@@ -1,0 +1,35 @@
+{
+    "properties": {
+      "displayName": "Audit resources with 'environment' tag of 'Stage' or 'Production' for Delete lock",
+      "policyType": "Custom",
+      "mode": "Indexed",  
+      "description": "This policy audits resources tagged with 'environment' and a value of either 'Stage' or 'Production' for the presence of a Delete lock.",
+      "metadata": {
+        "category": "Locks",
+        "createdBy": "ebf709c7-22ca-47ac-a18c-1ca67eb8f53a",
+        "createdOn": "2024-09-27T15:30:59.018128Z"
+      },
+      "version": "1.0.0",
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "tags['environment']",
+              "in": [
+                "Stage",
+                "Production"
+              ]
+            },
+            {
+              "field": "Microsoft.Authorization/locks/level",
+              "equals": "CanNotDelete"
+            }
+          ]
+        },
+        "then": {
+          "effect": "audit"
+        }
+      }
+    }
+  }
+  

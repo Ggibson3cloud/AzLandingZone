@@ -1,22 +1,45 @@
 resource "azurerm_public_ip" "appgw_public_ip" {
-  name                = "app-gw-public-ip-001"
+  name                = var.public_ip_name
   location            = var.location
   resource_group_name = var.rg_name
   allocation_method   = "Static"
 }
+
+
+
+# #######################################
+# ###### 
+# #######################################
+# resource "azurerm_key_vault_certificate" "this" {
+#   name         = var.certificate_name
+#   key_vault_id = var.key_vault_id
+#   secret_name  = var.secret_name
+# }
 
 resource "azurerm_application_gateway" "this" {
   name                = var.name
   resource_group_name = var.rg_name
   location            = var.location
   zones               = var.availability_zones
+  enable_http2 = var.enable_http2  ##set to true
   tags                = var.tags
 
   sku {
     name = var.sku_name
     tier = var.sku_tier
+    capacity = var.capacity #minimum 2 for production optional if autoscale is set
   }
 
+  # Adding autoscale configuration for production only 2 to 50
+  autoscale_configuration {
+    min_capacity = var.autoscale_min_capacity  # Minimum number of instances
+    max_capacity = var.autoscale_max_capacity  # Maximum number of instances
+  }
+
+  identity {
+    type = "UserAssigned"
+    identity_ids = var.user_assigned_identity_ids  # Use for user-assigned identity
+  }
 
   dynamic "backend_address_pool" {
     for_each = var.backend_address_pools
@@ -62,8 +85,11 @@ resource "azurerm_application_gateway" "this" {
   }
 
   frontend_ip_configuration {
-    name                 = "appGwPublicFrontendIp"
-    public_ip_address_id = azurerm_public_ip.appgw_public_ip.id
+    name                 = var.frontend_ip_configuration_name
+    public_ip_address_id = azurerm_public_ip.appgw_public_ip.id ##Only for external load balancer
+    private_ip_address = var.private_ip_address
+
+
   }
 
   frontend_port {
@@ -97,30 +123,30 @@ resource "azurerm_application_gateway" "this" {
       http_listener_name         = request_routing_rule.value.http_listener_name
       backend_address_pool_name  = request_routing_rule.value.backend_pool_name
       backend_http_settings_name = request_routing_rule.value.backend_http_settings_name
-      #priority                   = request_routing_rule.value.priority
+      priority                   = request_routing_rule.value.priority
 
     }
   }
 
-
-
+ # SSL Certificate block
   dynamic "ssl_certificate" {
     for_each = var.ssl_certificates
     content {
-      name     = ssl_certificate.key
-      data     = ssl_certificate.value.data
-      password = ssl_certificate.value.password
+      name              = ssl_certificate.key
+      key_vault_secret_id = azurerm_key_vault_certificate.this.secret_id  # Retrieve the certificate from Key Vault
     }
   }
+
+  
 }
 
 
-####################################################################################
-## This is used to associate a Virtual Machine to the Backend pool with the NIC
-####################################################################################
+# ####################################################################################
+# ## This is used to associate a Virtual Machine to the Backend pool with the NIC
+# ####################################################################################
 
-resource "azurerm_network_interface_application_gateway_backend_address_pool_association" "example" {
-  network_interface_id    = data.azurerm_network_interface.this.id
-  ip_configuration_name   = "testconfiguration1"
-  backend_address_pool_id = azurerm_application_gateway.network.backend_address_pool[0].id
-}
+# resource "azurerm_network_interface_application_gateway_backend_address_pool_association" "example" {
+#   network_interface_id    = data.azurerm_network_interface.this.id
+#   ip_configuration_name   = "testconfiguration1"
+#   backend_address_pool_id = azurerm_application_gateway.network.backend_address_pool[0].id
+# }

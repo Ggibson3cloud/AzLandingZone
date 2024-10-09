@@ -80,6 +80,16 @@ subnet = { ##update
     nsg                                            = null
     route_table                                    = true
   },
+   s-cus-snet-appgw = {
+    subnet_range                                   = ["10.130.12.0/24"]
+    service_endpoints                              = []
+    delegation_name                                = null
+    delegation_actions                             = null
+    enforce_private_link_endpoint_network_policies = true
+    vnet                                           = "s-cus-vnet-apps"
+    nsg                                            = null
+    route_table                                    = true
+  },
 }
 
 nsgs = [
@@ -118,6 +128,39 @@ nsgs = [
   },
   {
     name = "s-cus-nsg-servers"
+    rules = [
+      {
+        description                                = "Allow All Inbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "110"
+        direction                                  = "Inbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Inbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      },
+      {
+        description                                = "Allow All Outbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "120"
+        direction                                  = "Outbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Outbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      }
+    ]
+  },
+    {
+    name = "s-cus-nsg-appgw"
     rules = [
       {
         description                                = "Allow All Inbound"
@@ -196,6 +239,21 @@ route_tables = [
     ]
     vnetlocal_routes = []
   },
+    {
+    name                          = "s-cus-rt-appgw"
+    vnet                          = "s-cus-vnet-apps"
+    disable_bgp_route_propagation = false
+    nva_routes = [
+      {
+        name           = "defaultRoute"
+        address_prefix = "0.0.0.0/0"
+        next_hop_ip    = "10.251.10.70"
+      },
+
+
+    ]
+    vnetlocal_routes = []
+  },
 ]
 
 subnet_route_table_associations = {
@@ -210,6 +268,10 @@ subnet_route_table_associations = {
   "subnet4" = {
     subnet      = "s-cus-snet-privendpoint"
     route_table = "s-cus-rt-privendpoint"
+  }
+    "subnet5" = {
+    subnet      = "s-cus-snet-appgw"
+    route_table = "s-cus-rt-appgw"
   }
 }
 

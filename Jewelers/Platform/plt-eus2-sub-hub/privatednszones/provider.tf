@@ -11,13 +11,13 @@ terraform {
     resource_group_name  = "ss-cus-rg-terraform"                             # RG Name
     storage_account_name = "sscussatfstate"                                  # SA Name
     container_name       = "tfstate"                                         # Default for TFOS
-    key                  = "jewelers_alz_dns_private_zone.terraform.tfstate" # Key for Deployment
+    key                  = "jewelers_alz_dr_dns_private_zone.terraform.tfstate" # Key for Deployment
   }
 }
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
-  #skip_provider_registration = true
+  skip_provider_registration = true
   subscription_id = var.subscriptionid
   features {}
 }

@@ -70,7 +70,7 @@ subnet = { ##update
     nsg                                            = "p-cus-nsg-sql"
     route_table                                    = true
   },
-    p-cus-snet-privendpoint = {
+  p-cus-snet-privendpoint = {
     subnet_range                                   = ["10.120.134.0/24"]
     service_endpoints                              = []
     delegation_name                                = null
@@ -80,7 +80,7 @@ subnet = { ##update
     nsg                                            = null
     route_table                                    = true
   },
-    p-cus-snet-sqlmi = {
+  p-cus-snet-sqlmi = {
     subnet_range                                   = ["10.120.136.0/23"]
     service_endpoints                              = []
     delegation_name                                = "Microsoft.Sql/managedInstances"
@@ -90,6 +90,37 @@ subnet = { ##update
     nsg                                            = "p-cus-nsg-sqlmi"
     route_table                                    = true
   },
+  p-cus-snet-sqlag-a = {
+    subnet_range                                   = ["10.120.138.0/27"]
+    service_endpoints                              = []
+    delegation_name                                = null
+    delegation_actions                             = null
+    enforce_private_link_endpoint_network_policies = true
+    vnet                                           = "p-cus-vnet-sql"
+    nsg                                            = "p-cus-nsg-sqlag-a"
+    route_table                                    = true
+  },
+  p-cus-snet-sqlag-b = {
+    subnet_range                                   = ["10.120.138.32/27"]
+    service_endpoints                              = []
+    delegation_name                                = null
+    delegation_actions                             = null
+    enforce_private_link_endpoint_network_policies = true
+    vnet                                           = "p-cus-vnet-sql"
+    nsg                                            = "p-cus-nsg-sqlag-b"
+    route_table                                    = true
+  },
+  p-cus-snet-sqlag-r = {
+    subnet_range                                   = ["10.120.138.64/27"]
+    service_endpoints                              = []
+    delegation_name                                = null
+    delegation_actions                             = null
+    enforce_private_link_endpoint_network_policies = true
+    vnet                                           = "p-cus-vnet-sql"
+    nsg                                            = "p-cus-nsg-sqlag-r"
+    route_table                                    = true
+  },
+
 }
 
 nsgs = [
@@ -159,7 +190,7 @@ nsgs = [
       }
     ]
   },
-    {
+  {
     name = "p-cus-nsg-sqlmi"
     rules = [
       {
@@ -192,12 +223,115 @@ nsgs = [
       }
     ]
   },
+  {
+    name = "p-cus-nsg-sqlag-a"
+    rules = [
+      {
+        description                                = "Allow All Inbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "110"
+        direction                                  = "Inbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Inbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      },
+      {
+        description                                = "Allow All Outbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "120"
+        direction                                  = "Outbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Outbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      }
+    ]
+  },
+  {
+    name = "p-cus-nsg-sqlag-b"
+    rules = [
+      {
+        description                                = "Allow All Inbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "110"
+        direction                                  = "Inbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Inbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      },
+      {
+        description                                = "Allow All Outbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "120"
+        direction                                  = "Outbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Outbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      }
+    ]
+  },
+  {
+    name = "p-cus-nsg-sqlag-r"
+    rules = [
+      {
+        description                                = "Allow All Inbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "110"
+        direction                                  = "Inbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Inbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      },
+      {
+        description                                = "Allow All Outbound"
+        protocol                                   = "*"
+        access                                     = "Allow"
+        priority                                   = "120"
+        direction                                  = "Outbound"
+        destination_address_prefix                 = "*"
+        destination_application_security_group_ids = null
+        destination_port_range                     = "*"
+        name                                       = "Allow_All_Outbound"
+        source_address_prefix                      = "*"
+        source_application_security_group_ids      = null
+        source_port_range                          = "*"
+      }
+    ]
+  },
+
+
+
+
 ]
 
 route_tables = [
   {
-    name                          = "p-cus-rt-servers"        #update
-    vnet                          = "p-cus-vnet-sql" #update
+    name                          = "p-cus-rt-servers" #update
+    vnet                          = "p-cus-vnet-sql"   #update
     disable_bgp_route_propagation = false
     nva_routes = [
       {
@@ -210,7 +344,7 @@ route_tables = [
     vnetlocal_routes = []
   },
   {
-    name                          = "p-cus-rt-sql"         #update
+    name                          = "p-cus-rt-sql"   #update
     vnet                          = "p-cus-vnet-sql" #update
     disable_bgp_route_propagation = false
     nva_routes = [
@@ -238,9 +372,51 @@ route_tables = [
     ]
     vnetlocal_routes = []
   },
-    {
-    name                          = "p-cus-rt-sqlmi"         #update
+  {
+    name                          = "p-cus-rt-sqlmi" #update
     vnet                          = "p-cus-vnet-sql" #update
+    disable_bgp_route_propagation = false
+    nva_routes = [
+      {
+        name           = "defaultRoute"
+        address_prefix = "0.0.0.0/0"
+        next_hop_ip    = "10.251.10.70"
+      },
+
+    ]
+    vnetlocal_routes = []
+  },
+  {
+    name                          = "p-cus-rt-sqlag-a" #update
+    vnet                          = "p-cus-vnet-sql"   #update
+    disable_bgp_route_propagation = false
+    nva_routes = [
+      {
+        name           = "defaultRoute"
+        address_prefix = "0.0.0.0/0"
+        next_hop_ip    = "10.251.10.70"
+      },
+
+    ]
+    vnetlocal_routes = []
+  },
+  {
+    name                          = "p-cus-rt-sqlag-b" #update
+    vnet                          = "p-cus-vnet-sql"   #update
+    disable_bgp_route_propagation = false
+    nva_routes = [
+      {
+        name           = "defaultRoute"
+        address_prefix = "0.0.0.0/0"
+        next_hop_ip    = "10.251.10.70"
+      },
+
+    ]
+    vnetlocal_routes = []
+  },
+  {
+    name                          = "p-cus-rt-sqlag-r" #update
+    vnet                          = "p-cus-vnet-sql"   #update
     disable_bgp_route_propagation = false
     nva_routes = [
       {
@@ -267,9 +443,21 @@ subnet_route_table_associations = {
     subnet      = "p-cus-snet-privendpoint"
     route_table = "p-cus-rt-privendpoint"
   }
-   "subnet1" = {
+  "subnet1" = {
     subnet      = "p-cus-snet-sqlmi"
     route_table = "p-cus-rt-sqlmi"
+  }
+  "subnet5" = {
+    subnet      = "p-cus-snet-sqlag-a"
+    route_table = "p-cus-rt-sqlag-a"
+  }
+  "subnet6" = {
+    subnet      = "p-cus-snet-sqlag-b"
+    route_table = "p-cus-rt-sqlag-b"
+  }
+  "subnet7" = {
+    subnet      = "p-cus-snet-sqlag-r"
+    route_table = "p-cus-rt-sqlag-r"
   }
 }
 

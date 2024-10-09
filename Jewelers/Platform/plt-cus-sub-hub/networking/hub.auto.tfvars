@@ -51,7 +51,7 @@ vnets = [
   {
     resource_group = "h-cus-rg-hub"
     name           = "h-cus-vnet-appgw"
-    cidr           = ["10.251.12.0/24"]
+    cidr           = ["10.251.12.0/23"]
     dns_servers    = []
   }
 ]

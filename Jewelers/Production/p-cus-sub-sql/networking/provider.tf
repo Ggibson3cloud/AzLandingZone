@@ -18,7 +18,7 @@ terraform {
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
   skip_provider_registration = true
-  subscription_id = var.subscription_id
+  subscription_id            = var.subscription_id
   features {
     key_vault {
       purge_soft_delete_on_destroy    = true
@@ -31,6 +31,7 @@ provider "azurerm" {
 }
 
 provider "azurerm" {
+  skip_provider_registration = true
   alias           = "hub"
   subscription_id = var.hubid
   features {}

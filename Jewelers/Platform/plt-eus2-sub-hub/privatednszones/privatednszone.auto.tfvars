@@ -1,14 +1,15 @@
 resource_group_name = "h-eus2-rg-privatednszones"
 location            = "eastus2"
-vnet_id             = "/subscriptions/3a5271d7-a7d6-4584-818c-238fa6355819/resourceGroups/h-cus-rg-hub/providers/Microsoft.Network/virtualNetworks/h-cus-vnet-hub"
-subscriptionid      = "3a5271d7-a7d6-4584-818c-238fa6355819"
+vnet_id             = "/subscriptions/8cc21a98-4584-4bed-8643-4cb6fd0d7bbf/resourceGroups/h-eus2-rg-hub/providers/Microsoft.Network/virtualNetworks/h-eus2-vnet-hub"
+
+subscriptionid      = "8cc21a98-4584-4bed-8643-4cb6fd0d7bbf"
 
 tags = {
   Applications  = "Private DNS Zones"
   BusinessOwner = "IT"
   ITOwner       = "Networking"
   CreatedBy     = "ggibson@3cloudsolutions.com"
-  CreatedOn     = "06/24/2024"
+  CreatedOn     = "09/17/2024"
   Department    = "IT"
   Description   = "DR Private DNS Zones"
   DisplayName   = "DR Private DNS Zones"

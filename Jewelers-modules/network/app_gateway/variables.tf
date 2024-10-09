@@ -96,6 +96,12 @@ variable "basic_request_routing_rules" {
   default     = {}
 }
 
+
+variable "public_ip_name" {
+  type = string
+  description = "The name for hte public ip address if needed"
+  
+}
 # variable "redirect_request_routing_rules" {
 #     type = map(object({
 #         name = string

@@ -1,0 +1,38 @@
+{
+    "properties": {
+      "displayName": "Audit resources with 'Tier' tag for Delete lock",
+      "description": "This policy audits resources tagged with 'Tier' and a value of either 'Stage' or 'Production' for the presence of a Delete lock.",
+      "mode": "All",
+      "parameters": {
+        "tagName": {
+          "type": "String",
+          "metadata": {
+            "description": "Tag name to check",
+            "displayName": "Tag Name",
+            "defaultValue": "Tier"
+          }
+        }
+      },
+      "policyRule": {
+        "if": {
+          "allOf": [
+            {
+              "field": "[concat('tags[', parameters('tagName'), ']')]",
+              "in": [
+                "Stage",
+                "Production"
+              ]
+            },
+            {
+              "field": "Microsoft.Authorization/locks/level",
+              "equals": "CanNotDelete"
+            }
+          ]
+        },
+        "then": {
+          "effect": "audit"
+        }
+      }
+    }
+  }
+  
